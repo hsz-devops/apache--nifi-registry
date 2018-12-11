@@ -30,15 +30,20 @@ add_property() {
   fi
 }
 
+echo ">>>>>>>>> 1"
+ls -la "$providers_file"
 xmlstarlet ed --inplace -u "${property_xpath}/property[@name='Flow Storage Directory']" -v "${NIFI_REGISTRY_FLOW_STORAGE_DIR:-./flow_storage}" "${providers_file}"
+ls -la "$providers_file"
 
 case ${NIFI_REGISTRY_FLOW_PROVIDER} in
     file)
+        echo ">>>>>>>>> file"
         ls -la "$providers_file"
         xmlstarlet ed --inplace -u "${property_xpath}/class" -v "org.apache.nifi.registry.provider.flow.FileSystemFlowPersistenceProvider" "${providers_file}"
         ls -la "$providers_file"
         ;;
     git)
+        echo ">>>>>>>>> git"
         ls -la "$providers_file"
         xmlstarlet ed --inplace -u "${property_xpath}/class" -v "org.apache.nifi.registry.provider.flow.git.GitFlowPersistenceProvider" "${providers_file}"
         ls -la "$providers_file"
