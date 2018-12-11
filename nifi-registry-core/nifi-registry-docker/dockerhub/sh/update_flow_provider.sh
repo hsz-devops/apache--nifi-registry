@@ -23,7 +23,9 @@ add_property() {
   property_value=$2
 
   if [ -n "${property_value}" ]; then
+    ls -la "$providers_file"
     xmlstarlet ed --subnode "/providers/flowPersistenceProvider" --type elem -n property -v "${property_value}" providers.xml | xmlstarlet ed --subnode "/providers/flowPersistenceProvider/property[not(name)]" --type attr -n name -v "${property_name}"
+    ls -la "$providers_file"
   fi
 }
 
@@ -31,10 +33,14 @@ xmlstarlet ed --inplace -u "${property_xpath}/property[@name='Flow Storage Direc
 
 case ${NIFI_REGISTRY_FLOW_PROVIDER} in
     file)
+        ls -la "$providers_file"
         xmlstarlet ed --inplace -u "${property_xpath}/class" -v "org.apache.nifi.registry.provider.flow.FileSystemFlowPersistenceProvider" "${providers_file}"
+        ls -la "$providers_file"
         ;;
     git)
+        ls -la "$providers_file"
         xmlstarlet ed --inplace -u "${property_xpath}/class" -v "org.apache.nifi.registry.provider.flow.git.GitFlowPersistenceProvider" "${providers_file}"
+        ls -la "$providers_file"
         add_property "Remote To Push"  "${NIFI_REGISTRY_GIT_REMOTE:-}"
         add_property "Remote Access User"  "${NIFI_REGISTRY_GIT_USER:-}"
         add_property "Remote Access Password"    "${NIFI_REGISTRY_GIT_PASSWORD:-}"
