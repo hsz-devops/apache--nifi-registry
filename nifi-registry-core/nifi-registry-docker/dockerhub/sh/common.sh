@@ -20,7 +20,7 @@
 prop_replace () {
   target_file=${3:-${nifi_registry_props_file}}
   echo 'replacing target file ' ${target_file}
-  sed -i~ -e "s|^$1=.*$|$1=$2|"  ${target_file}
+  sed "-i.`date  -u +~%Y%m%dT%H%M%S~`" -e "s|^$1=.*$|$1=$2|"  ${target_file}
 }
 
 # NIFI_REGISTRY_HOME is defined by an ENV command in the backing Dockerfile

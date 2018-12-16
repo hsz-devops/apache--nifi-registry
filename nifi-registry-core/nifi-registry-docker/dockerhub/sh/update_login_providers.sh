@@ -30,7 +30,7 @@ edit_property() {
 }
 
 # Remove comments to enable the ldap-provider
-sed -i '/To enable the ldap-identity-provider remove/d' "${login_providers_file}"
+sed "-i.`date  -u +~%Y%m%dT%H%M%S~`" '/To enable the ldap-identity-provider remove/d' "${login_providers_file}"
 
 edit_property 'Authentication Strategy'     "${LDAP_AUTHENTICATION_STRATEGY}"
 edit_property 'Manager DN'                  "${LDAP_MANAGER_DN}"
